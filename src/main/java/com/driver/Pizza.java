@@ -4,82 +4,97 @@ public class Pizza {
 
     private int price;
     private Boolean isVeg;
-    private Boolean isExtraCheeseAdded;
-    private Boolean isExtraToppingsAddedVeg;
-    private Boolean isExtraToppingsAddedNonVeg;
-    private Boolean isTakewayAdded;
     private String bill;
 
+    private boolean extraCheese = false;
+    private boolean extraToppinsVegData = false;
+    private boolean extraToppinsNonVegData = false;
+    private boolean bagData = false;
+
+    final int vegPizza = 300;
+    final int nonVegPizza = 400;
+    final int extraCheesePrice = 80;
+    final int extraToppinsVeg = 70;
+    final int extraToppinsNonVeg = 120;
+    final int bag = 20;
+
     public Pizza(Boolean isVeg) {
-        // your code goes here
-        this.price = 0;
+
         this.isVeg = isVeg;
-        this.bill = "";
-        if (this.isVeg) {
-            this.price += 300;
+        if (isVeg) {
+            this.price = 300;
         } else {
-            this.price += 400;
+            this.price = 400;
+
         }
 
-        this.isExtraCheeseAdded = false;
-        this.isExtraToppingsAddedVeg = false;
-        this.isExtraToppingsAddedNonVeg = false;
-        this.isTakewayAdded = false;
     }
 
     public int getPrice() {
+
         return this.price;
     }
 
     public void addExtraCheese() {
-        // your code goes here
-        if (!this.isExtraCheeseAdded && !this.isExtraToppingsAddedVeg && !isExtraToppingsAddedNonVeg) {
-            this.isExtraCheeseAdded = true;
-            this.price += 80;
+
+        if (!extraCheese) {
+            this.price = this.price + extraCheesePrice;
+            extraCheese = true;
+
         }
+
     }
 
     public void addExtraToppings() {
-        // your code goes here
-        if (!this.isExtraToppingsAddedVeg && this.isVeg) {
-            this.isExtraToppingsAddedVeg = true;
-            this.isExtraCheeseAdded = true;
-            this.price += 70;
-        } else if (!this.isExtraToppingsAddedNonVeg && !this.isVeg) {
-            this.isExtraToppingsAddedNonVeg = true;
-            this.isExtraCheeseAdded = true;
-            this.price += 120;
+
+        if (!extraToppinsVegData && isVeg) {
+            this.price = this.price + extraToppinsVeg;
+            extraToppinsVegData = true;
+            extraCheese = true;
+
+        } else if (!extraToppinsNonVegData && !isVeg) {
+            this.price = this.price + extraToppinsNonVeg;
+            extraToppinsNonVegData = true;
+            extraCheese = true;
+
         }
+
     }
 
     public void addTakeaway() {
-        // your code goes here
-        if (!this.isTakewayAdded) {
-            this.isTakewayAdded = true;
-            this.price += 20;
+
+        if (!bagData) {
+            bagData = true;
+            this.price = this.price + bag;
         }
     }
 
     public String getBill() {
-        // your code goes here
-        if (this.isVeg) {
-            this.bill += "Base Price Of The Pizza: " + 300 + "\n";
+
+        if (isVeg) {
+            this.bill = "Base Price Of The Pizza: " + vegPizza + "\n";
         } else {
-            this.bill += "Base Price Of The Pizza: " + 400 + "\n";
+            this.bill = "Base Price Of The Pizza: " + nonVegPizza + "\n";
+
         }
 
-        if (this.isExtraCheeseAdded)
-            this.bill += "Extra Cheese Added: " + 80 + "\n";
+        if (extraCheese) {
+            this.bill = this.bill + "Extra Cheese Added: " + extraCheesePrice + "\n";
+        }
 
-        if (this.isVeg && this.isExtraToppingsAddedVeg)
-            this.bill += "Extra Toppings Added: " + 70 + "\n";
-        else if (!this.isVeg && this.isExtraToppingsAddedNonVeg)
-            this.bill += "Extra Toppings Added: " + 120 + "\n";
+        if (isVeg && extraToppinsVegData) {
+            this.bill = this.bill + "Extra Toppings Added: " + extraToppinsVeg + "\n";
+        } else if (!isVeg && extraToppinsNonVegData) {
+            this.bill = this.bill + "Extra Toppings Added: " + extraToppinsNonVeg + "\n";
 
-        if (this.isTakewayAdded)
-            this.bill += "Paperbag Added: " + 20 + "\n";
+        }
 
-        this.bill += "Total Price: " + this.price + "\n";
+        if (bagData) {
+            this.bill = this.bill + "Paperbag Added: " + bag + "\n";
+        }
+
+        this.bill = this.bill + "Total Price: " + this.price + "\n";
+
         return this.bill;
     }
 }
