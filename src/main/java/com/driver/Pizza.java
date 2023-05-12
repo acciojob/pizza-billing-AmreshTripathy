@@ -13,13 +13,14 @@ public class Pizza {
         // your code goes here
         this.price = 0;
         this.isVeg = isVeg;
-        if (this.isVeg)
-            this.price += 300;
-        else
-            this.price += 400;
-
         this.bill = "";
-        this.bill += "Base Price Of The Pizza: " + this.price + "\n";
+        if (this.isVeg) {
+            this.price += 300;
+            this.bill += "Base Price Of The Pizza: " + 300 + "\n";
+        } else {
+            this.price += 400;
+            this.bill += "Base Price Of The Pizza: " + 400 + "\n";
+        }
 
         this.isExtraCheeseAdded = false;
         this.isExtraToppingsAdded = false;
